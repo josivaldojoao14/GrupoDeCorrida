@@ -1,37 +1,34 @@
 package com.grupodecorrida.web.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "clubs")
-public class Club {
+public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String category;
     private String imageUrl;
-    private String description;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @OneToMany(mappedBy = "club", cascade = CascadeType.REMOVE)
-    private List<Event> events = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "club_id", nullable = false)
+    private Club club;
 }

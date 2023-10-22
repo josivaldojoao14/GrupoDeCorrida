@@ -1,13 +1,18 @@
-package com.grupodecorrida.web.service;
+package com.grupodecorrida.web.service.impl;
 
 import com.grupodecorrida.web.dto.ClubDto;
+import com.grupodecorrida.web.mapper.ClubMapper;
 import com.grupodecorrida.web.models.Club;
 import com.grupodecorrida.web.repository.ClubRepository;
+import com.grupodecorrida.web.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.grupodecorrida.web.mapper.ClubMapper.mapToClub;
+import static com.grupodecorrida.web.mapper.ClubMapper.mapToClubDto;
 
 @Service
 public class ClubServiceImpl implements ClubService {
@@ -51,29 +56,5 @@ public class ClubServiceImpl implements ClubService {
     public List<ClubDto> searchClubs(String query) {
         List<Club> clubs = clubRepository.searchClubs(query);
         return clubs.stream().map(club -> mapToClubDto(club)).collect(Collectors.toList());
-    }
-
-    private Club mapToClub(ClubDto clubDto) {
-        Club club = Club.builder()
-                .id(clubDto.getId())
-                .name(clubDto.getName())
-                .description(clubDto.getDescription())
-                .imageUrl(clubDto.getImageUrl())
-                .createdOn(clubDto.getCreatedOn())
-                .updatedOn(clubDto.getUpdatedOn())
-                .build();
-        return club;
-    }
-
-    private ClubDto mapToClubDto(Club club) {
-        ClubDto clubDto = ClubDto.builder()
-                .id(club.getId())
-                .name(club.getName())
-                .description(club.getDescription())
-                .imageUrl(club.getImageUrl())
-                .createdOn(club.getCreatedOn())
-                .updatedOn(club.getUpdatedOn())
-                .build();
-        return clubDto;
     }
 }
