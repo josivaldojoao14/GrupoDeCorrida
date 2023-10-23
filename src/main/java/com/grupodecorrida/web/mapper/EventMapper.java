@@ -14,6 +14,7 @@ public class EventMapper {
                 .endTime(eventDto.getEndTime())
                 .category(eventDto.getCategory())
                 .imageUrl(eventDto.getImageUrl())
+                .club(eventDto.getClub())
                 .build();
     }
 
@@ -27,6 +28,7 @@ public class EventMapper {
                 .endTime(event.getEndTime())
                 .category(event.getCategory())
                 .imageUrl(event.getImageUrl())
+                .club(event.getClub())
                 .build();
     }
 }

@@ -4,7 +4,7 @@
         layout:decorate="~{layout}"
 >
 <head>
-  <title>Detalhes do clube</title>
+  <title>Detalhes do evento</title>
 </head>
 <body class="d-flex flex-column">
 
@@ -12,8 +12,7 @@
   <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
       <div class="text-center my-5">
-        <h1 class="fw-bolder" th:text="${club.name}"></h1>
-        <p class="lead mb-0" th:text="${club.description}"></p>
+        <h1 class="fw-bolder" th:text="${event.name}"></h1>
       </div>
     </div>
   </header>
@@ -23,28 +22,12 @@
       <div class="col-lg-8">
         <!-- Featured blog post-->
         <div class="card mb-4">
-          <a href="#!"><img class="card-img-top" th:src="${club.imageUrl}" alt="..." /></a>
+          <a href="#!"><img class="card-img-top" th:src="${event.imageUrl}" alt="..." /></a>
           <div class="card-body">
-            <div class="small text-muted" th:text="${club.createdOn}"></div>
-            <h2 class="card-title">Sobre esse grupo</h2>
-            <p class="card-text" th:text="${club.description}"></p>
-            <a class="btn btn-danger" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Apagar</a>
-            <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}">Criar evento</a>
-          </div>
-        </div>
-        <!-- Nested row for non-featured blog posts-->
-        <div class="row">
-          <div class="col-lg-6">
-            <!-- Blog post-->
-            <div th:each="event :${club.events}" class="card mb-4">
-              <a href="#!"><img class="card-img-top" th:src="${event.imageUrl}" alt="..." /></a>
-              <div class="card-body">
-                <div class="small text-muted">January 1, 2023</div>
-                <h2 th:text="${event.name}" class="card-title h4">=</h2>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                <a class="btn btn-primary" th:href="@{/events/{eventId}(eventId=${event.id})}">Fique por dentro</a>
-              </div>
-            </div>
+            <div class="small text-muted" th:text="${event.createdOn}"></div>
+            <h2 class="card-title" th:text="'Categoria: ' +${event.category}"></h2>
+            <a class="btn btn-danger" th:href="@{/events/{eventId}/delete(eventId=${event.id})}">Apagar</a>
+            <a class="btn btn-primary" th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Editar</a>
           </div>
         </div>
         <!-- Pagination-->
