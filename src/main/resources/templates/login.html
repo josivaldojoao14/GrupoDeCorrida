@@ -35,43 +35,37 @@
   </style>
   <div class="main">
     <div class="col-md-6 col-sm-12">
-      <div th:if="${param.success}" class="alert alert-success">
-        Você foi cadastrado com sucesso!
+      <div th:if="${param.logout}" class="alert alert-success">
+        Você saiu com segurança!
       </div>
-      <div th:if="${param.fail}" class="alert alert-danger">
-        O usuário ou email já foram cadastrados.
+      <div th:if="${param.error}" class="alert alert-danger">
+        Credenciais incorretas! Verifique o usuário e a senha.
       </div>
       <div class="login-form">
-        <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
+        <form method="post" role="form" th:action="@{/login}">
           <div class="form-group">
             <label>Usuário</label>
             <input
+                    id="username"
                     type="text"
                     class="form-control"
-                    placeholder="Username"
-                    th:field="*{username}">
+                    placeholder="Usuário"
+                    name="username"
+            >
           </div>
-          <p th:if="${#fields.hasErrors('username')}" class="text-danger"></p>
-          <div class="form-group">
-            <label>Email</label>
-            <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Email"
-                    th:field="*{email}">
-          </div>
-          <p th:if="${#fields.hasErrors('email')}" class="text-danger"></p>
+
           <div class="form-group">
             <label>Senha</label>
             <input
+                    id="password"
                     type="password"
                     class="form-control"
-                    placeholder="Password"
-                    th:field="*{password}">
+                    placeholder="Senha"
+                    name="password"
+            >
           </div>
-          <p th:if="${#fields.hasErrors('password')}" class="text-danger"></p>
-          <button th:href="@{/register}" type="submit" class="btn btn-primary">Cadastrar</button>
-          <a th:href="@{/login}" class="btn btn-black">Ja tem uma conta? Entre aqui</a>
+          <button value="Login" type="submit" class="btn btn-primary">Entrar</button>
+          <a th:href="@{/register}" class="btn btn-black">Não tem uma conta? Cadastre-se aqui</a>
         </form>
       </div>
     </div>
