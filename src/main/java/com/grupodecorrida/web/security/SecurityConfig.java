@@ -15,7 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     @Autowired
     public SecurityConfig(CustomUserDetailsService userDetailsService) {
@@ -30,15 +30,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((auth) -> auth.anyRequest().permitAll())
+                .authorizeHttpRequests((auth) ->
+                        auth.anyRequest().permitAll()
+                )
                 .formLogin(form ->
                         form.loginPage("/login")
                                 .defaultSuccessUrl("/clubs")
                                 .loginProcessingUrl("/login")
-                                .failureUrl("/login?error=true"))
+                                .failureUrl("/login?error=true")
+                )
                 .logout(logout ->
                         logout.logoutRequestMatcher(new AntPathRequestMatcher(("/logout")))
-                                .permitAll())
+                                .permitAll()
+                )
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }

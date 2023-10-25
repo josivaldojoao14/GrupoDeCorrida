@@ -17,8 +17,8 @@ import static com.grupodecorrida.web.mapper.EventMapper.mapToEventDto;
 
 @Service
 public class EventServiceImpl implements EventService {
-    private EventRepository eventRepository;
-    private ClubRepository clubRepository;
+    private final EventRepository eventRepository;
+    private final ClubRepository clubRepository;
 
     @Autowired
     public EventServiceImpl(EventRepository eventRepository, ClubRepository clubRepository) {

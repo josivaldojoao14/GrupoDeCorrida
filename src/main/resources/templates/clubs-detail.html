@@ -28,8 +28,10 @@
             <div class="small text-muted" th:text="${club.createdOn}"></div>
             <h2 class="card-title">Sobre esse grupo</h2>
             <p class="card-text" th:text="${club.description}"></p>
-            <a class="btn btn-danger" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Apagar</a>
-            <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}">Criar evento</a>
+            <div th:if="${user.id} == ${club.createdBy.id}">
+              <a class="btn btn-danger" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Apagar</a>
+              <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}">Criar evento</a>
+            </div>
           </div>
         </div>
         <!-- Nested row for non-featured blog posts-->

@@ -1,9 +1,11 @@
 package com.grupodecorrida.web.service.impl;
 
 import com.grupodecorrida.web.dto.ClubDto;
-import com.grupodecorrida.web.mapper.ClubMapper;
 import com.grupodecorrida.web.models.Club;
+import com.grupodecorrida.web.models.UserEntity;
 import com.grupodecorrida.web.repository.ClubRepository;
+import com.grupodecorrida.web.repository.UserRepository;
+import com.grupodecorrida.web.security.SecurityUtil;
 import com.grupodecorrida.web.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,13 @@ import static com.grupodecorrida.web.mapper.ClubMapper.mapToClubDto;
 
 @Service
 public class ClubServiceImpl implements ClubService {
-    private ClubRepository clubRepository;
+    private final ClubRepository clubRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ClubServiceImpl(ClubRepository clubRepository) {
+    public ClubServiceImpl(ClubRepository clubRepository, UserRepository userRepository) {
         this.clubRepository = clubRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -31,7 +35,10 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public Club saveClub(ClubDto clubDto) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity user = userRepository.findFirstByUsername(username);
         Club club = mapToClub(clubDto);
+        club.setCreatedBy(user);
         return clubRepository.save(club);
     }
 
@@ -43,7 +50,10 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public void updateClub(ClubDto clubDto) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity user = userRepository.findFirstByUsername(username);
         Club club = mapToClub(clubDto);
+        club.setCreatedBy(user);
         clubRepository.save(club);
     }
 

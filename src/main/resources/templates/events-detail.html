@@ -26,8 +26,10 @@
           <div class="card-body">
             <div class="small text-muted" th:text="${event.createdOn}"></div>
             <h2 class="card-title" th:text="'Categoria: ' +${event.category}"></h2>
-            <a class="btn btn-danger" th:href="@{/events/{eventId}/delete(eventId=${event.id})}">Apagar</a>
-            <a class="btn btn-primary" th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Editar</a>
+            <div th:if="${user.id} == ${event.club.createdBy.id}">
+              <a class="btn btn-danger" th:href="@{/events/{eventId}/delete(eventId=${event.id})}">Apagar</a>
+              <a class="btn btn-primary" th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Editar</a>
+            </div>
           </div>
         </div>
         <!-- Pagination-->
